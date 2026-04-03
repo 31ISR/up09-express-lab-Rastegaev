@@ -139,12 +139,12 @@ app.post("/api/books/:id/reviews", auth, (req, res) => {
         const userid = req.user.id;
         const bookid = req.params.id;
         const query = db.prepare(`INSERT INTO Review (bookId,userId,rating,comment) VALUES(?,?,?,?)`).run(bookid, userid, rating, comment);
-        const newReviw = db.prepare(`SELECT * FROM Review WHERE bookid = ?`).get(bookid);
+        const newReviw = db.prepare(`SELECT * FROM Review WHERE bookid = ?`).get(query.lastInsertRowid);
         res.status(201).json(newReviw);
     } catch (error) {
         console.error(error)
-            res.status(500).json({ error: "something went wrong"})
-        
+        res.status(500).json({ error: "something went wrong" })
+
     }
 })
 app.get("/api/books/:id/reviews", (req, res) => {
@@ -160,7 +160,35 @@ app.delete("/api/reviews/:id", auth, (req, res) => {
     try {
         const reviewId = req.params.id;
         const deleteook = db.prepare("DELETE FROM Review WHERE id = ?").run(reviewId);
-        res.status(200).json({ success: true });
+        res.status(200).json({ success: true }, deleteook);
+    } catch (error) {
+        console.error(error)
+        res.status(500).json({ error: "Somethin went wrong" })
+    }
+})
+app.get("/api/admin/users", auth, (req, res) => {
+    const admin = req.user.role
+    try {
+        if (admin === "admin") {
+            const query = db.prepare("SELECT * FROM User").all()
+            res.status(200).json(query);
+        } else {
+            res.status(403).json({ error: "Ты не админ" })
+        }
+    } catch (error) {
+        console.error(error)
+        res.status(500).json({ error: "Somethin went wrong" })
+    }
+})
+app.delete("/api/admin/users/:id", auth, (req, res) => {
+    const admin = req.user.role
+    const userid = req.params.id
+    try {
+        if (admin !== "admin") {
+            res.status(401).json({ error: "Ты не админ" })
+        }
+        const query = db.prepare("DELETE FROM User WHERE id = ?").run(userid)
+        res.status(202).json({success: "true"});
     } catch (error) {
         console.error(error)
         res.status(500).json({ error: "Somethin went wrong" })

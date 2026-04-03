@@ -22,8 +22,8 @@ db.prepare(`
         genre TEXT NOT NULL,
         description TEXT NOT NULL,
         createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-        createdBy INTEGER NOT NULL,
-        FOREIGN KEY (createdBy) REFERENCES User(id)
+        createdBy INTEGER NOT NULL ,
+        FOREIGN KEY (createdBy) REFERENCES User(id) ON DELETE CASCADE
     )
 `).run()
 db.prepare(`
@@ -35,7 +35,7 @@ db.prepare(`
         comment TEXT NOT NULL,
         createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY (bookId) REFERENCES Book(id),
-        FOREIGN KEY (userId) REFERENCES User(id)
+        FOREIGN KEY (userId) REFERENCES User(id) ON DELETE CASCADE
     )
 `).run()
 // db.prepare(`
