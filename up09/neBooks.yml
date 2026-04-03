@@ -1,0 +1,25 @@
+info:
+  name: neBooks
+  type: http
+  seq: 5
+
+http:
+  method: POST
+  url: "{{bar}}api/books"
+  body:
+    type: json
+    data: |-
+      {
+        "title": "Мастер и Маргарита",
+        "author": "Михаил Булгаков",
+        "year": 1967,
+        "genre": "Роман",
+        "description": "Философский роман о добре и зле, любви и свободе выбора."
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

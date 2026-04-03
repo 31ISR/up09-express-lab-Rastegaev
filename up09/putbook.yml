@@ -1,0 +1,29 @@
+info:
+  name: putbook
+  type: http
+  seq: 6
+
+http:
+  method: PUT
+  url: "{{bar}}api/books/:id"
+  params:
+    - name: id
+      value: "1"
+      type: path
+  body:
+    type: json
+    data: |-
+      {
+        "title": "Мастер и Маргарита (обновлённое издание)",
+        "author": "Михаил Булгаков",
+        "year": 2024,
+        "genre": "Роман",
+        "description": "Обновлённое описание книги."
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
