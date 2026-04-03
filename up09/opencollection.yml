@@ -1,0 +1,29 @@
+opencollection: 1.0.0
+
+info:
+  name: up09
+config:
+  proxy:
+    inherit: true
+    config:
+      protocol: http
+      hostname: ""
+      port: ""
+      auth:
+        username: ""
+        password: ""
+      bypassProxy: ""
+
+request:
+  headers:
+    - name: Authorization
+      value: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwicm9sZSI6ImFkbWluIiwiY3JlYXRlZEF0IjoiMjAyNi0wNC0wMyAwNDo0OToyNSIsImlhdCI6MTc3NTE5MTc3MiwiZXhwIjoxNzc1Mjc4MTcyfQ.HE-hLhNL2g4jL8vLFnzPR8Ex16GV5LYJHFiDwaIrefY
+  variables:
+    - name: bar
+      value: https://friendly-trout-wr546g5xpqj4hgvpq-3001.app.github.dev/
+bundled: false
+extensions:
+  bruno:
+    ignore:
+      - node_modules
+      - .git
